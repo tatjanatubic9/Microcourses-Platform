@@ -1,0 +1,14 @@
+
+<%= form_for(lesson, :url =>"/courses/#{lesson.course_id}/lessons") do |f| %>
+<div class="form-grouped">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %><br>
+
+    <%= f.label :description %><br>
+    <%= f.text_area :description %><br>
+
+    <%= f.label :link %><br>
+    <%= f.text_field :link %><br>
+    <%= f.submit "Add lesson" %>
+</div>
+<%end%>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @course.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @course.description %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @course.user.name %>
+</p>
+<% if can? :create, Lesson %>
+  <% if @course.user == current_user %>
+<%= render :partial => 'lessons/index', :locals => {:lessons => @course.lessons.all} %>
+<%= render :partial => 'lessons/new', :locals => {:lesson => @course.lessons.new(:course_id => @course.id)} %>
+  <% end %>
+<% elsif current_user.student? && !@course.lessons.first.nil? %>
+<%= link_to "Watch course", course_lesson_path(:course_id => @course.id, :id => @course.lessons.first.id) %>
+<% end %>
+
+<% if can? :update, @course %>
+<%= link_to 'Edit', edit_course_path(@course) %>
+<% end %>|
+<%= link_to 'Back', courses_path %>

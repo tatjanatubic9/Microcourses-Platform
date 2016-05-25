@@ -1,0 +1,22 @@
+<table class="table table-hover">
+<thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Youtube link</th>
+      </tr>
+    </thead>
+<% lessons.each do |l| %>
+
+
+    <tbody>
+        <tr>
+            <td><%= link_to l.name, course_lesson_path(:course_id => l.course.id, :id => l.id) %></td>
+            <td><%= l.description %></td>
+            <td><%= l.link %></td>
+            <td><%= link_to "Delete lesson", course_lesson_path(@course, l), method: :delete %></td>
+        </tr>
+    </tbody>
+
+<%end%>
+</table>

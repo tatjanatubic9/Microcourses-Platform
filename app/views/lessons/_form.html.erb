@@ -1,0 +1,9 @@
+<%= form_for(:lesson) do |f| %>
+<%= f.label :name %><br>
+<%= f.text_field :name %><br>
+<%= f.label :description %><br>
+<%= f.text_area :description %><br>
+<%= f.label :link %><br>
+<%= f.text_field :link %><br>
+<%= f.submit "Add lesson" %>
+<%end%>

@@ -1,0 +1,9 @@
+<h1><%= @lesson.course.name %></h1>
+<h2><%= @lesson.name %></h2>
+<p><%= @lesson.description %></p>
+<div class="embed-container">
+    <%= embed(@lesson.link) %>
+</div>
+<% unless @lesson.course.lessons.last == @lesson %>
+<%= link_to "Next lesson", course_lesson_path(@lesson.course, @lesson.course.lessons.find(@lesson.id+1)) %>
+<% end %>
