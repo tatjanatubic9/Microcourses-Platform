@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+ 
+
   get 'my_courses' => 'courses#my_courses', as: :my_courses
   
   devise_for :users, :controllers => {registrations:'registrations'}
@@ -8,6 +10,9 @@ Rails.application.routes.draw do
   
    resources :courses do
       resources :lessons
+      resources :quiz do
+          resources :questions
+      end
    end
   
   

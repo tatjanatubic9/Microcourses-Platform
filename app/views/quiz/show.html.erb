@@ -1,0 +1,3 @@
+<%= render :partial => 'questions/index', :locals => {:questions => @quiz.questions.all} %>
+<%= render :partial => 'questions/new', :locals => {:question => @quiz.questions.new(:quiz_id => @quiz.id)} %>
+<%= link_to 'Back to course', @quiz.course %>

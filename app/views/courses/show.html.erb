@@ -23,6 +23,12 @@
 <%= link_to "Watch course", course_lesson_path(:course_id => @course.id, :id => @course.lessons.first.id) %>
 <% end %>
 
+<% if @course.quiz.nil? %> 
+  <%= link_to "Create quiz", course_quiz_index_path(:course_id => @course.id), method: :post %><br>
+<% else %>
+  <%= link_to "Show quiz", course_quiz_path(@course, @course.quiz) %><br>
+<% end %>
+
 <% if can? :update, @course %>
 <%= link_to 'Edit', edit_course_path(@course) %>
 <% end %>|
