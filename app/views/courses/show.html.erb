@@ -27,9 +27,12 @@
   <%= link_to "Create quiz", course_quiz_index_path(:course_id => @course.id), method: :post %><br>
 <% else %>
   <%= link_to "Show quiz", course_quiz_path(@course, @course.quiz) %><br>
+  <%= link_to 'Start quiz', new_course_quiz_pending_quiz_path(@course, @course.quiz) %><br>
 <% end %>
 
 <% if can? :update, @course %>
 <%= link_to 'Edit', edit_course_path(@course) %>
 <% end %>|
 <%= link_to 'Back', courses_path %>
+
+

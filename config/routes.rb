@@ -2,6 +2,16 @@ Rails.application.routes.draw do
 
  
 
+  get 'pending_quiz/show'
+
+  get 'pending_quiz/new'
+
+  get 'pending_quiz/index'
+
+  get 'show/new'
+
+  get 'show/index'
+
   get 'my_courses' => 'courses#my_courses', as: :my_courses
   
   devise_for :users, :controllers => {registrations:'registrations'}
@@ -12,8 +22,11 @@ Rails.application.routes.draw do
       resources :lessons
       resources :quiz do
           resources :questions
+          resources :pending_quiz
       end
    end
+   
+   
   
   
   

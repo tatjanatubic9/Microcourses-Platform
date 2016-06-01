@@ -19,7 +19,7 @@ class QuizController < ApplicationController
     @quiz = @course.build_quiz
     
     if @quiz.save
-      redirect_to @quiz
+      redirect_to course_quiz_path(@quiz.course,@quiz)
     else
       render nothing: true #TO DO 
     end

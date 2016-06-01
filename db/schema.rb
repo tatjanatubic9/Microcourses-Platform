@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160525104141) do
+ActiveRecord::Schema.define(version: 20160525204829) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "name"
@@ -34,6 +34,16 @@ ActiveRecord::Schema.define(version: 20160525104141) do
 
   add_index "lessons", ["course_id"], name: "index_lessons_on_course_id"
 
+  create_table "pending_quizzes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "quiz_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "pending_quizzes", ["quiz_id"], name: "index_pending_quizzes_on_quiz_id"
+  add_index "pending_quizzes", ["user_id"], name: "index_pending_quizzes_on_user_id"
+
   create_table "questions", force: :cascade do |t|
     t.integer  "nb"
     t.text     "description"
@@ -43,6 +53,17 @@ ActiveRecord::Schema.define(version: 20160525104141) do
   end
 
   add_index "questions", ["quiz_id"], name: "index_questions_on_quiz_id"
+
+  create_table "quiz_answers", force: :cascade do |t|
+    t.integer  "pending_quiz_id"
+    t.integer  "question_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.text     "answer"
+  end
+
+  add_index "quiz_answers", ["pending_quiz_id"], name: "index_quiz_answers_on_pending_quiz_id"
+  add_index "quiz_answers", ["question_id"], name: "index_quiz_answers_on_question_id"
 
   create_table "quizzes", force: :cascade do |t|
     t.integer  "course_id"
