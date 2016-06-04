@@ -1,0 +1,2 @@
+module PendingQuizzesHelper
+end

@@ -1,0 +1,9 @@
+<% @quiz.questions.each_with_index do |question,index|  %>
+    <%= question.nb %>
+    <%= question.description %><br>
+    <% @quiz_answers.each do |an| %>
+        <% if an.question_id == question.id %>
+            <%= an.answer %><br>
+        <% end %>
+    <% end %>
+<% end %>
