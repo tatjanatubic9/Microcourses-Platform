@@ -1,0 +1,13 @@
+<%= form_for @quiz_result do |f| %>
+        <%= f.fields_for :answer_comments do |ff| %>
+            <%= @pending_quiz.quiz_answers[ff.index].question.description %><br>
+            <%= @pending_quiz.quiz_answers[ff.index].answer %><br>
+            <%= ff.label :add_comment %><br>
+            <%= ff.text_area :description, :value => "" %><br>
+        <% end %>
+        <%= f.hidden_field :pending_quiz_id, :value =>params[:pending_quiz_id] %>
+        <br>
+        <%= f.label :grade %>
+        <%= f.select :grade, (1..10) %><br>
+    <%= f.submit %>
+<% end %>

@@ -26,6 +26,18 @@ class Ability
             lesson.course.user == user
            end
            
+           can :create, Quiz do |quiz|
+            quiz.course.user == user
+           end
+           
+           can :create, Question do |q|
+            q.quiz.course.user == user
+           end
+           
+           can :destroy, Question do |q|
+            q.quiz.course.user == user
+           end
+           
            can :my_courses, Course
            
            can :read, :all

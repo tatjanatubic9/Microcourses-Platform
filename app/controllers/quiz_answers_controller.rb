@@ -45,6 +45,6 @@ class QuizAnswersController < ApplicationController
   
   
   def answer_params
-    params.require(:quiz_answer).permit(:answer)
+    params.require(:quiz_answer).permit(:answer, :question_id, :pending_quiz_id)
   end
 end

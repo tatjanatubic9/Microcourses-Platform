@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160525204829) do
+ActiveRecord::Schema.define(version: 20160604190119) do
+
+  create_table "answer_comments", force: :cascade do |t|
+    t.text     "description"
+    t.integer  "quiz_result_id"
+    t.integer  "quiz_answer_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "answer_comments", ["quiz_answer_id"], name: "index_answer_comments_on_quiz_answer_id"
+  add_index "answer_comments", ["quiz_result_id"], name: "index_answer_comments_on_quiz_result_id"
 
   create_table "courses", force: :cascade do |t|
     t.string   "name"
@@ -39,6 +50,7 @@ ActiveRecord::Schema.define(version: 20160525204829) do
     t.integer  "quiz_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "graded"
   end
 
   add_index "pending_quizzes", ["quiz_id"], name: "index_pending_quizzes_on_quiz_id"
@@ -64,6 +76,17 @@ ActiveRecord::Schema.define(version: 20160525204829) do
 
   add_index "quiz_answers", ["pending_quiz_id"], name: "index_quiz_answers_on_pending_quiz_id"
   add_index "quiz_answers", ["question_id"], name: "index_quiz_answers_on_question_id"
+
+  create_table "quiz_results", force: :cascade do |t|
+    t.integer  "grade"
+    t.integer  "user_id"
+    t.integer  "pending_quiz_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "quiz_results", ["pending_quiz_id"], name: "index_quiz_results_on_pending_quiz_id"
+  add_index "quiz_results", ["user_id"], name: "index_quiz_results_on_user_id"
 
   create_table "quizzes", force: :cascade do |t|
     t.integer  "course_id"

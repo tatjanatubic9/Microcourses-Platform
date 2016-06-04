@@ -1,12 +1,10 @@
 
 <%= form_for @some_quiz do |f| %>
-    <% @quiz_questions.each do |question| %>
-        <%= f.fields_for :quiz_answers, question do |ff| %>
-            <%= question.description %><br>
+        <%= f.fields_for :quiz_answers do |ff| %>
+            <%= @quiz_questions[ff.index].description %><br>
             <%= ff.label :answer %><br>
-            <%= ff.text_field :answer, :value => "unesi odg" %><br>
+            <%= ff.text_area :answer, :value => "" %><br>
         <% end %>
-    <% end %>    
     <%= f.submit %>
 <% end %>
     

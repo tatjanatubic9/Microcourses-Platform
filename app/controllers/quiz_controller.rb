@@ -26,6 +26,8 @@ class QuizController < ApplicationController
   end
   
   def destroy
+    @quiz.destroy
+    redirect_to @course
   end
   
   private

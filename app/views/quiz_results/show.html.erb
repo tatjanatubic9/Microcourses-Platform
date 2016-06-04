@@ -1,0 +1,8 @@
+
+<% @quiz_result.answer_comments.each_with_index do |ac,index| %>
+    <%= "#{index+1}. " %>
+    <%= @questions[index].description %><br>
+    <%= @answers[index].answer %><br>
+    <%= ac.description %><br><br>
+<% end %>
+<h2><%= @quiz_result.grade %></h2>

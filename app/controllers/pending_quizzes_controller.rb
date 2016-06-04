@@ -23,6 +23,7 @@ class PendingQuizzesController < ApplicationController
       answer.question_id = @pending_quiz.quiz.questions[index].id
     end
     @pending_quiz.user = current_user
+    @pending_quiz.graded = false
     
     if @pending_quiz.save
       redirect_to course_quiz_pending_quiz_path(@quiz.course, @quiz, @pending_quiz)
@@ -42,7 +43,7 @@ class PendingQuizzesController < ApplicationController
   end
   
   def pending_quiz_params
-    params.require(:pending_quiz).permit( quiz_answers_attributes: [:id, :answer, :question_id])
+    params.require(:pending_quiz).permit( quiz_answers_attributes: [:id, :answer, :question_id, :pending_quiz_id])
   end
   
 end

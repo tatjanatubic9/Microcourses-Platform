@@ -3,6 +3,18 @@ Rails.application.routes.draw do
  
 
   
+  get 'answer_comments/new'
+
+  get 'answer_comments/show'
+
+  get 'answer_comments/index'
+
+  get 'quiz_results/new'
+
+  get 'quiz_results/show'
+
+  get 'quiz_results/index'
+
   get 'pending_quiz/show'
 
   get 'pending_quiz/new'
@@ -19,8 +31,8 @@ Rails.application.routes.draw do
   
   devise_for :users, :controllers => {registrations:'registrations'}
   
-  
-  
+   resources :quiz_results
+   
    resources :courses do
       resources :lessons
       resources :quiz do
