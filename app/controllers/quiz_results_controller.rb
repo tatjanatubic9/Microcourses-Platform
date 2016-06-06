@@ -14,7 +14,8 @@ class QuizResultsController < ApplicationController
    @quiz_result = @pending_quiz.build_quiz_result(quiz_result_params)
    @quiz_result.user = current_user
    if @quiz_result.save
-     @pending_quiz.graded = true
+     @pending_quiz.grade = true
+     @pending_quiz.save
      redirect_to @quiz_result
    else
      render "new"

@@ -6,6 +6,8 @@ class Ability
     #
         user ||= User.new # guest user (not logged in)
          if user.teacher?
+            can :read, :all
+          
            can :create, Course
            
            can :update, Course do |course|
@@ -30,6 +32,11 @@ class Ability
             quiz.course.user == user
            end
            
+           can :destroy, Quiz do |quiz|
+            quiz.course.user == user
+           end
+           
+           
            can :create, Question do |q|
             q.quiz.course.user == user
            end
@@ -38,11 +45,31 @@ class Ability
             q.quiz.course.user == user
            end
            
+           can :create, QuizResult do |q|
+            q.pending_quiz.quiz.course == user
+           end
+           
+           can :read, Lesson
+           
            can :my_courses, Course
            
+          
+           
+           cannot :read, Quiz do |quiz|
+            quiz.course.user != user
+           end
+         
+         elsif user.student?
+           
+           can :create, PendingQuiz
+
            can :read, :all
+           
+           cannot :read, Quiz
+           
          else
            can :read, :all
+          cannot :read, Quiz
          end
     #
     # The first argument to `can` is the action you are giving the user

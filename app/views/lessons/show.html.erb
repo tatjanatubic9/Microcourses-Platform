@@ -6,4 +6,8 @@
 </div>
 <% unless @lesson.course.lessons.last == @lesson %>
 <%= link_to "Next lesson", course_lesson_path(@lesson.course, @lesson.course.lessons.find(@lesson.id+1)) %>
+<% else %>
+<% if can? :create, PendingQuiz %>
+  <%= link_to 'Start quiz', new_course_quiz_pending_quiz_path(@lesson.course, @lesson.course.quiz)%><br>
+ <% end %>
 <% end %>

@@ -14,25 +14,33 @@
   <strong>User:</strong>
   <%= @course.user.name %>
 </p>
-<% if can? :create, Lesson %>
-  <% if @course.user == current_user %>
-<%= render :partial => 'lessons/index', :locals => {:lessons => @course.lessons.all} %>
-<%= render :partial => 'lessons/new', :locals => {:lesson => @course.lessons.new(:course_id => @course.id)} %>
-  <% end %>
-<% elsif current_user.student? && !@course.lessons.first.nil? %>
-<%= link_to "Watch course", course_lesson_path(:course_id => @course.id, :id => @course.lessons.first.id) %>
-<% end %>
+      <% if !@course.lessons.first.nil? %>
+        <%= link_to "Watch course", course_lesson_path(@course, @course.lessons.first) %> 
+      <% end %>
+    <% if can? :create, Lesson %>
+      <% if @course.user == current_user %>
+          <%= render :partial => 'lessons/index', :locals => {:lessons => @course.lessons.all} %>
+          <%= render :partial => 'lessons/new', :locals => {:lesson => @course.lessons.new(:course_id => @course.id)} %>
+      <% end %>
+    <% end %>
+    
+    
+      
 
-<% if @course.quiz.nil? %> 
-  <%= link_to "Create quiz", course_quiz_index_path(:course_id => @course.id), method: :post %><br>
-<% else %>
-  <%= link_to "Show quiz", course_quiz_path(@course, @course.quiz) %><br>
-  <%= link_to 'Start quiz', new_course_quiz_pending_quiz_path(@course, @course.quiz) %><br>
-<% end %>
+      <% if @course.quiz.nil?%> 
+        <% if can? :create, Quiz %>
+        <%= link_to "Create quiz", course_quiz_index_path(:course_id => @course.id), method: :post %><br>
+        <% end %>
+      <% else %>
+        <% if can? :read, @course.quiz %>
+        <%= link_to "Show quiz", course_quiz_path(@course, @course.quiz) %><br>
+        <% end %>
+      <% end %>
 
-<% if can? :update, @course %>
-<%= link_to 'Edit', edit_course_path(@course) %>
-<% end %>|
+      <% if can? :update, @course %>
+      <%= link_to 'Edit', edit_course_path(@course) %>
+      <% end %>|
 <%= link_to 'Back', courses_path %>
+
 
 

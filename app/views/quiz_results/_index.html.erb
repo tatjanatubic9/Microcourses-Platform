@@ -1,21 +1,22 @@
-
 <table class="table table-hover">
   <thead>
     <tr>
       <th>User</th>
       <th>Course name</th>
       <th>Teacher</th>
+      <th>Grade</th>
       <th colspan="1"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @pending_quizzes.each do |q| %>
+    <% quiz_results.each do |q| %>
       <tr>
         <td><%= q.user.name %></td>
-        <td><%= q.quiz.course.name %></td>
-        <td><%= q.quiz.course.user.name %></td>
-        <td><%= link_to 'Show', course_quiz_pending_quiz_path(q.quiz.course, q.quiz, q) %></td>
+        <td><%= q.pending_quiz.quiz.course.name %></td>
+        <td><%= q.pending_quiz.quiz.course.user.name %></td>
+        <td><%= q.grade %></td>
+        <td><%= link_to 'Show', q %></td>
       </tr>
     <% end %>
   </tbody>

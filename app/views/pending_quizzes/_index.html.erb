@@ -10,7 +10,7 @@
   </thead>
 
   <tbody>
-    <% @pending_quizzes.each do |q| %>
+    <% pending_quizzes.each do |q| %>
       <tr>
         <td><%= q.user.name %></td>
         <td><%= q.quiz.course.name %></td>

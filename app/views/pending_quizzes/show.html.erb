@@ -7,4 +7,6 @@
         <% end %>
     <% end %>
 <% end %>
+<% if can? :create, QuizResult %>
 <%= link_to "Grade", {:controller => "quiz_results", :action => "new", :pending_quiz_id => @pending_quiz.id} %>
+<% end %>

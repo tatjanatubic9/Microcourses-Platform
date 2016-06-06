@@ -1,9 +1,10 @@
 class QuizController < ApplicationController
-  before_action :set_course
+  before_action :set_course, except: :index
   before_action :set_quiz,  only: [:show, :edit, :update, :destroy]
   
-  
   def index
+     @pending_quizzes = PendingQuizzesHelper.get_pending_quizzes
+     @quiz_results = QuizResultsHelper.get_quizzes_results
   end
 
   def show

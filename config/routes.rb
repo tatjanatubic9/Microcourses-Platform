@@ -8,22 +8,10 @@ Rails.application.routes.draw do
   get 'answer_comments/show'
 
   get 'answer_comments/index'
+  
+  get 'quizzes' => 'quiz#index', as: :my_quizzes
 
-  get 'quiz_results/new'
-
-  get 'quiz_results/show'
-
-  get 'quiz_results/index'
-
-  get 'pending_quiz/show'
-
-  get 'pending_quiz/new'
-
-  get 'pending_quiz/index'
-
-  get 'show/new'
-
-  get 'show/index'
+  
 
   get 'my_courses' => 'courses#my_courses', as: :my_courses
   
@@ -31,15 +19,13 @@ Rails.application.routes.draw do
   
   devise_for :users, :controllers => {registrations:'registrations'}
   
-   resources :quiz_results
+   resources :quiz_results, :except => [:edit, :update, :destroy]
    
    resources :courses do
       resources :lessons
-      resources :quiz do
-          resources :questions
-          resources :pending_quizzes do
-            resources :quiz_answers
-          end
+      resources :quiz, :except => [:index,:edit, :update] do
+          resources :questions, :except => [:show, :edit, :update]
+          resources :pending_quizzes, :except => [:destroy, :edit ,:update]
       end
    end
    

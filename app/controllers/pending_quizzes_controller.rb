@@ -1,5 +1,5 @@
 class PendingQuizzesController < ApplicationController
-  before_action :set_quiz
+  before_action :set_quiz, except: :index
   
   def show
     @pending_quiz = @quiz.pending_quizzes.find(params[:id])
@@ -33,7 +33,7 @@ class PendingQuizzesController < ApplicationController
   end
 
   def index
-    @pending_quizzes = @quiz.pending_quizzes
+    @pending_quizzes = PendingQuizzesHelper.get_pending_quizzes
   end
   
   private
