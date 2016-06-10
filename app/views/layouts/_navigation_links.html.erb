@@ -1,1 +1,12 @@
 <%# add navigation links to this file %>
+<li><%= link_to "Browse courses", courses_path %></li>
+<% if user_signed_in? && current_user.teacher? %>
+    <li><%= link_to "My courses", my_courses_path %></li>
+<% end %>
+<% if user_signed_in? %>
+    <li><%= link_to "Quizzes", my_quizzes_path %></li>
+    <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+<% else %>
+    <li><%= link_to "Sign in", new_user_session_path %></li>
+    <li><%= link_to "Sign up", new_user_registration_path %></li>
+<% end %>

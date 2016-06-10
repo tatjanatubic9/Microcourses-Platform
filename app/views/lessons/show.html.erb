@@ -1,13 +1,37 @@
-<h1><%= @lesson.course.name %></h1>
-<h2><%= @lesson.name %></h2>
-<p><%= @lesson.description %></p>
-<div class="embed-container">
-    <%= embed(@lesson.link) %>
+<div class="container ">
+    <div class="row">
+           <div class="jumbotron">
+            <div class="text-center">
+                <h1><%= @lesson.course.name %>
+                <h2><%= @lesson.name %></h2>
+                <p><%= @lesson.description %></p>
+            </div>
+            </div> 
+    </div>
 </div>
-<% unless @lesson.course.lessons.last == @lesson %>
-<%= link_to "Next lesson", course_lesson_path(@lesson.course, @lesson.course.lessons.find(@lesson.id+1)) %>
-<% else %>
-<% if can? :create, PendingQuiz %>
-  <%= link_to 'Start quiz', new_course_quiz_pending_quiz_path(@lesson.course, @lesson.course.quiz)%><br>
- <% end %>
-<% end %>
+<div class="container">
+    <div class="row">
+        <div class="center-block extra-bottom-padding">
+                <div class="embed-responsive embed-responsive-4by3">
+                    <%= embed(@lesson.link) %>
+                </div>
+        </div>
+    </div>
+      <div class="text-center extra-bottom-padding">
+                 <div class="btn-group">
+                    <%= link_to "Back to course", @lesson.course, class: "btn btn-default" %>
+                  <% unless @lesson.course.lessons.first == @lesson %>
+                     <%= link_to "Previous lesson", course_lesson_path(@lesson.course, @lesson.course.lessons[@lesson.course.lessons.find_index(@lesson)-1]), class: "btn btn-default" %>
+                 <% end %>
+                 <% unless @lesson.course.lessons.last == @lesson %>
+                    <%= link_to "Next lesson", course_lesson_path(@lesson.course, @lesson.course.lessons[@lesson.course.lessons.find_index(@lesson)+1]), class: "btn btn-default" %>
+                <% else %>
+                <% if can? :create, PendingQuiz %>
+                  <%= link_to 'Start quiz', new_course_quiz_pending_quiz_path(@lesson.course, @lesson.course.quiz), class: "btn btn-default"%>
+                 <% end %>
+                <% end %>
+                </div>
+        </div>
+</div>
+
+

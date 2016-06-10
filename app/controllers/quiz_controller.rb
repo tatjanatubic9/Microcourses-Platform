@@ -1,4 +1,5 @@
 class QuizController < ApplicationController
+  load_and_authorize_resource :except => [:create, :index]
   before_action :set_course, except: :index
   before_action :set_quiz,  only: [:show, :edit, :update, :destroy]
   

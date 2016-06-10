@@ -1,5 +1,7 @@
 class PendingQuizzesController < ApplicationController
+  load_and_authorize_resource :except => [:create]
   before_action :set_quiz, except: :index
+  
   
   def show
     @pending_quiz = @quiz.pending_quizzes.find(params[:id])
@@ -28,7 +30,8 @@ class PendingQuizzesController < ApplicationController
     if @pending_quiz.save
       redirect_to course_quiz_pending_quiz_path(@quiz.course, @quiz, @pending_quiz)
     else
-      render nothing: true
+      flash[:error] = @pending_quiz.errors
+      render :template => "pending_quizzes/new"
     end
   end
 

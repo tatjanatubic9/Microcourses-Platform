@@ -23,7 +23,7 @@
                     </li>
                     <% if user_signed_in? && current_user.teacher? %>
                         <li>
-                           <%= link_to "My course", my_courses_path, class: 'page-scroll' %>
+                           <%= link_to "My courses", my_courses_path, class: 'page-scroll' %>
                         </li>
                     <% end %>
                     <% if user_signed_in? %>

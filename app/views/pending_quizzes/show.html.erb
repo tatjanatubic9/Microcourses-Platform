@@ -1,12 +1,21 @@
-<% @quiz.questions.each_with_index do |question,index|  %>
-    <%= question.nb %>
-    <%= question.description %><br>
-    <% @quiz_answers.each do |an| %>
-        <% if an.question_id == question.id %>
-            <%= an.answer %><br>
+<div class="row">
+    <div class="panel-group">
+        <% @quiz.questions.each_with_index do |question,index|  %>
+            <div class="panel panel-default">
+            <div class="panel-heading"><strong>Question <%= question.nb %>: </strong><%= question.description %><br></div>
+            
+            <% @quiz_answers.each do |an| %>
+                <% if an.question_id == question.id %>
+                   <div class="panel-body"> <%= an.answer %></div><br>
+                <% end %>
+            <% end %>
+            </div>
         <% end %>
-    <% end %>
-<% end %>
-<% if can? :create, QuizResult %>
-<%= link_to "Grade", {:controller => "quiz_results", :action => "new", :pending_quiz_id => @pending_quiz.id} %>
-<% end %>
+    </div>     
+        <% if can? :create, QuizResult %>
+            <div class="text-center">
+            <%= link_to "Grade", {:controller => "quiz_results", :action => "new", :pending_quiz_id => @pending_quiz.id}, class: "btn btn-default" %>
+            </div>
+        <% end %>
+    
+</div>

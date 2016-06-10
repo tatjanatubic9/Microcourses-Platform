@@ -1,8 +1,25 @@
-
-<% @quiz_result.answer_comments.each_with_index do |ac,index| %>
-    <%= "#{index+1}. " %>
-    <%= @questions[index].description %><br>
-    <%= @answers[index].answer %><br>
-    <%= ac.description %><br><br>
-<% end %>
-<h2><%= @quiz_result.grade %></h2>
+<div class="row text-center">
+    <div class="center-block">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-primary ">
+                  <div class="panel-heading"><div class="text-center"><strong>FINAL GRADE</strong></div></div>
+                  <div class="panel-body"><div class="text-center"><h1><%= @quiz_result.grade %></h1></div></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="panel-group">
+    <% @quiz_result.answer_comments.each_with_index do |ac,index| %>
+        <div class="panel panel-default row">
+     
+            <div class="panel-heading"><div class="text-uppercase"><strong><%= "#{index+1}. " %>Question:</strong></div></div><div class="panel-body "><%= @questions[index].description %></div><br>
+    
+            <div class="panel-heading"><div class="text-uppercase "><strong>Students answer</strong></div></div><div class="panel-body "> <em><%= @answers[index].answer %></em></div><br>
+    
+            <div class="panel-heading"><div class="text-uppercase "><strong>Teachers comment</strong></div></div><div class="panel-body "><%= ac.description %></div><br>
+    
+        </div>
+    <% end %>
+    </div>
+</div>  

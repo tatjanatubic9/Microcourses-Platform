@@ -16,7 +16,8 @@ class LessonsController < ApplicationController
     if @lesson.save
       redirect_to @course
     else
-      render nothing: true #TO DO
+      flash[:error] = @lesson.errors
+      render :template => "courses/show"
     end
   end
 

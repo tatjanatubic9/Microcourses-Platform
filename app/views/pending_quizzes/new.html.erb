@@ -1,11 +1,33 @@
 
+
+<div class="panel-group">
 <%= form_for @some_quiz do |f| %>
+
+        <% if @some_quiz.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@some_quiz.errors.count, "error") %> prohibited this pending_quiz from being saved:</h2>
+        
+              <ul>
+              <% @some_quiz.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
         <%= f.fields_for :quiz_answers do |ff| %>
-            <%= @quiz_questions[ff.index].description %><br>
-            <%= ff.label :answer %><br>
-            <%= ff.text_area :answer, :value => "" %><br>
+            <div class="panel panel-default">
+            <div class="panel-heading"><%= @quiz_questions[ff.index].description %></div> 
+                <div class="panel-body">
+                    <div class="form-group">
+                    <%= ff.label :answer %>
+                    <%= ff.text_area :answer, :value => "", class: "form-control input-lg" %>
+                    </div>
+                </div>
+            </div>
         <% end %>
-    <%= f.submit %>
+    <%= f.submit "Submit", class: "btn btn-default" %>
 <% end %>
+</div>
     
     

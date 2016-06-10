@@ -37,6 +37,7 @@ class Ability
            end
            
            
+           
            can :create, Question do |q|
             q.quiz.course.user == user
            end
@@ -45,15 +46,13 @@ class Ability
             q.quiz.course.user == user
            end
            
-           can :create, QuizResult do |q|
-            q.pending_quiz.quiz.course == user
-           end
+           can :create, QuizResult
            
            can :read, Lesson
            
            can :my_courses, Course
            
-          
+           can :read, :all
            
            cannot :read, Quiz do |quiz|
             quiz.course.user != user

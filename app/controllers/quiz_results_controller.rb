@@ -1,5 +1,5 @@
 class QuizResultsController < ApplicationController
-  
+  load_and_authorize_resource :except => [:create]
   def new
     @pending_quiz ||= PendingQuiz.find(params[:pending_quiz_id])
     
@@ -14,9 +14,9 @@ class QuizResultsController < ApplicationController
    @quiz_result = @pending_quiz.build_quiz_result(quiz_result_params)
    @quiz_result.user = current_user
    if @quiz_result.save
-     @pending_quiz.grade = true
+     @pending_quiz.graded = true
      @pending_quiz.save
-     redirect_to @quiz_result
+     redirect_to my_quizzes_path
    else
      render "new"
    end

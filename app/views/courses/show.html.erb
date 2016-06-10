@@ -1,46 +1,59 @@
 <p id="notice"><%= notice %></p>
+<div class="container">
+<div class="row">
+  <p>
+    <strong>Name:</strong>
+    <%= @course.name %>
+  </p>
+  
+  <p>
+    <strong>Description:</strong>
+    <%= @course.description %>
+  </p>
+  
+  <p>
+    <strong>User:</strong>
+    <%= @course.user.name %>
+  </p>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @course.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @course.description %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @course.user.name %>
-</p>
-      <% if !@course.lessons.first.nil? %>
-        <%= link_to "Watch course", course_lesson_path(@course, @course.lessons.first) %> 
-      <% end %>
+    <div class="row extra-bottom-padding">
+          <div class="btn-group">
+          <% if !@course.lessons.first.nil? %>
+            <%= link_to "Watch course", course_lesson_path(@course, @course.lessons.first), class: "btn btn-default" %>
+          <% else %>
+            <div class="btn btn-warning">No lessons</div>
+          <% end %>
+          
+          <% if @course.quiz.nil?%> 
+            <% if can? :create, Quiz %>
+            <%= link_to "Create quiz", course_quiz_index_path(:course_id => @course.id), method: :post, class: "btn btn-default" %>
+            <% end %>
+          <% else %>
+            <% if can? :read, @course.quiz %>
+            <%= link_to "Show quiz", course_quiz_path(@course, @course.quiz),  class: "btn btn-default" %>
+            <% end %>
+          <% end %>
+    
+          <% if can? :update, @course %>
+          <%= link_to 'Edit', edit_course_path(@course),  class: "btn btn-default" %>
+          <% end %>
+          <%= link_to 'Back', courses_path ,  class: "btn btn-default"%>
+          </div>
+    </div>
     <% if can? :create, Lesson %>
       <% if @course.user == current_user %>
+        <div class="row extra-bottom-padding">
           <%= render :partial => 'lessons/index', :locals => {:lessons => @course.lessons.all} %>
+        </div>
+        <div class="row">
           <%= render :partial => 'lessons/new', :locals => {:lesson => @course.lessons.new(:course_id => @course.id)} %>
+        </div>
       <% end %>
     <% end %>
-    
+</div>  
     
       
-
-      <% if @course.quiz.nil?%> 
-        <% if can? :create, Quiz %>
-        <%= link_to "Create quiz", course_quiz_index_path(:course_id => @course.id), method: :post %><br>
-        <% end %>
-      <% else %>
-        <% if can? :read, @course.quiz %>
-        <%= link_to "Show quiz", course_quiz_path(@course, @course.quiz) %><br>
-        <% end %>
-      <% end %>
-
-      <% if can? :update, @course %>
-      <%= link_to 'Edit', edit_course_path(@course) %>
-      <% end %>|
-<%= link_to 'Back', courses_path %>
-
-
-
+  
+      
+  

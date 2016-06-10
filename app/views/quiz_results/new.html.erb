@@ -1,13 +1,24 @@
+<div class="panel-group">
 <%= form_for @quiz_result do |f| %>
+    <div class="panel panel-default  extra-bottom-padding">
         <%= f.fields_for :answer_comments do |ff| %>
-            <%= @pending_quiz.quiz_answers[ff.index].question.description %><br>
-            <%= @pending_quiz.quiz_answers[ff.index].answer %><br>
-            <%= ff.label :add_comment %><br>
-            <%= ff.text_area :description, :value => "" %><br>
+        <div class="panel-heading">
+            <strong><%= @pending_quiz.quiz_answers[ff.index].question.description %></strong><br>
+            <em><%= @pending_quiz.quiz_answers[ff.index].answer %></em>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <%= ff.label :add_comment %><br>
+                <%= ff.text_area :description, :value => "", class: "form-control input-lg" %>
+            </div>
+        </div>
         <% end %>
         <%= f.hidden_field :pending_quiz_id, :value =>params[:pending_quiz_id] %>
-        <br>
-        <%= f.label :grade %>
-        <%= f.select :grade, (1..10) %><br>
-    <%= f.submit %>
+        <div class="form-group panel-heading">
+            <%= f.label :grade %>
+            <%= f.select :grade, (1..10), class: "form-control text-large" %>
+        </div>
+    </div>
+    <%= f.submit "Grade", class: "btn btn-default" %>
 <% end %>
+</div>

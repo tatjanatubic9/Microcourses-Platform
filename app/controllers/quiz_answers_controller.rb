@@ -15,7 +15,8 @@ class QuizAnswersController < ApplicationController
     if @answer.save
       redirect_to @pending_quiz
     else
-      render nothing: true #TO DO
+      flash[:error] = @answer.errors
+      render :template => "pending_quizzes/new"
     end
   end
 

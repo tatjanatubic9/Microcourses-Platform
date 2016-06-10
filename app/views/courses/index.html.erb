@@ -31,7 +31,9 @@
 </table>
 
 <br>
-<% if can? :create, Course %>
-<%= link_to 'New Course', new_course_path %>
-<% end %>
-<%= link_to 'Back', root_path %>
+<div class="btn-group">
+  <% if can? :create, Course %>
+  <%= link_to 'New Course', new_course_path, class: "btn btn-default" %>
+  <% end %>
+  <%= link_to 'Back', root_path, class: "btn btn-default"  %>
+</div>

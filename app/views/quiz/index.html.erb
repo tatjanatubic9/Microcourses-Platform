@@ -1,4 +1,10 @@
-<h1>Graded tests</h1>
-<%= render :partial => 'quiz_results/index', :locals => {:quiz_results => @quiz_results} %>
-<h1>Test for grading</h1>
-<%= render :partial => 'pending_quizzes/index', :locals => {:pending_quizzes => @pending_quizzes} %>
+<div class="container">
+    <div class="row extra-bottom-padding">
+    <h2>Graded tests</h2>
+    <%= render :partial => 'quiz_results/index', :locals => {:quiz_results => @quiz_results} %>
+    </div>
+    <div class="row extra-bottom-padding">
+    <h2>Test for grading</h2>
+    <%= render :partial => 'pending_quizzes/index', :locals => {:pending_quizzes => @pending_quizzes} %>
+    </div>
+</div>
