@@ -1,0 +1,14 @@
+<div class="container">
+    <h1><%= current_user.name %></h1>
+    E-mail: <%= current_user.email %><br>
+    <h2>ROLE: <%= current_user.role %></h2>
+    <%= link_to "Edit profile", edit_user_registration_path, :class => "btn btn-default" %>
+    <p>Number of quizzes to be graded: <%= @pending_quizzes.size %></p>
+    <p>Number of graded quizzes: <%= @quiz_results.size %></p>
+    <% if current_user.teacher? %>
+        <p>Number of active courses: <%= @courses.size %></p>
+    <% elsif current_user.student? %>
+        <p>Number of courses taken: <%= @courses.size %></p>
+    <% end %>
+    <p>Average grade per graded quiz: <%= @average_quiz_result %></p>
+</div>

@@ -3,6 +3,8 @@ Rails.application.routes.draw do
  
 
   
+  get 'profiles/show'
+
   get 'answer_comments/new'
 
   get 'answer_comments/show'
@@ -10,6 +12,8 @@ Rails.application.routes.draw do
   get 'answer_comments/index'
   
   get 'quizzes' => 'quiz#index', as: :my_quizzes
+  
+  get "courses/:id/vote/:vote", to: 'course#vote'
 
   
 

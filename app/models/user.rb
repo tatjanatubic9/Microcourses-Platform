@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :courses
   has_many :pending_quizzes
   has_many :quiz_results
+  has_many :votes
   
   cattr_accessor :current_user
   # Include default devise modules. Others available are:

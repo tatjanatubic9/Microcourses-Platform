@@ -11,6 +11,18 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+    @number_of_votes = 0;
+    @course.votes.each do |v|
+    @number_of_votes+=v.value.to_i
+    end
+    if current_user.student?
+      @can = false
+      current_user.pending_quizzes.each do |pq|
+        if pq.quiz.course == @course
+          @can = true
+        end
+      end
+    end
   end
 
   # GET /courses/new
@@ -65,6 +77,11 @@ class CoursesController < ApplicationController
   
   def my_courses
     @courses = current_user.courses
+  end
+  
+  def vote
+    Vote.vote(params[:vote], current_user, @course)
+		redirect_to course_path(@course)
   end
 
   private

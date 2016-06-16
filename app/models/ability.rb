@@ -52,6 +52,7 @@ class Ability
            
            can :my_courses, Course
            
+           
            can :read, :all
            
            cannot :read, Quiz do |quiz|
@@ -59,6 +60,9 @@ class Ability
            end
          
          elsif user.student?
+         
+           can :vote, Course
+           
            
            can :create, PendingQuiz
 
