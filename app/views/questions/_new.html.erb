@@ -1,7 +1,7 @@
 <%= form_for(question, :url =>"/courses/#{question.quiz.course_id}/quiz/#{question.quiz_id}/questions") do |f| %>
-<div class="form-grouped">
+<div class="form-grou">
     <%= f.label :Insert_question %><br>
-    <%= f.text_area :description %><br>
-    <%= f.submit "Add question" %>
+    <%= f.text_area :description, class: "form-control" %><br>
+    <%= f.submit "Add question", class: "btn btn-default" %>
 </div>
 <%end%>

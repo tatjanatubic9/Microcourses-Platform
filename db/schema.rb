@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160616144618) do
+ActiveRecord::Schema.define(version: 20160616153029) do
 
   create_table "answer_comments", force: :cascade do |t|
     t.text     "description"
@@ -23,6 +23,17 @@ ActiveRecord::Schema.define(version: 20160616144618) do
 
   add_index "answer_comments", ["quiz_answer_id"], name: "index_answer_comments_on_quiz_answer_id"
   add_index "answer_comments", ["quiz_result_id"], name: "index_answer_comments_on_quiz_result_id"
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "description"
+    t.integer  "lesson_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "comments", ["lesson_id"], name: "index_comments_on_lesson_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "courses", force: :cascade do |t|
     t.string   "name"

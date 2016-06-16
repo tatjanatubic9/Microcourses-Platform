@@ -32,6 +32,12 @@
                 <% end %>
                 </div>
         </div>
+        <div class="row extra-bottom-padding">
+            <%= render :partial => 'comments/index', :locals => {:comments => @lesson.comments.all} %>
+            <% if user_signed_in? %>
+            <%= render :partial => 'comments/new', :locals => {:comment => @lesson.comments.new(:lesson_id => @lesson.id)} %>
+            <% end %>
+        </div>
 </div>
 
 

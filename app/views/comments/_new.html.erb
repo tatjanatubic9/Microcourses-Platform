@@ -1,0 +1,18 @@
+<%= form_for(comment, :url =>"/courses/#{comment.lesson.course_id}/lessons/#{comment.lesson_id}/comments") do |f| %>
+<% if !flash[:error].nil? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(flash[:error].count, "error") %> prohibited this comment from being saved:</h2>
+    
+          <ul>
+          <% flash[:error].full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+     <% end %>
+<div class="form-grouped">
+    <%= f.label :Insert_comment %><br>
+    <%= f.text_area :description, class: "form-control" %><br>
+    <%= f.submit "Add comment", class: "btn btn-default" %>
+</div>
+<%end%>

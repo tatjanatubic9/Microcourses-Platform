@@ -15,13 +15,15 @@ class CoursesController < ApplicationController
     @course.votes.each do |v|
     @number_of_votes+=v.value.to_i
     end
-    if current_user.student?
-      @can = false
-      current_user.pending_quizzes.each do |pq|
-        if pq.quiz.course == @course
-          @can = true
+    if user_signed_in?
+       if current_user.student?
+        @can = false
+        current_user.pending_quizzes.each do |pq|
+          if pq.quiz.course == @course
+            @can = true
+          end
         end
-      end
+       end
     end
   end
 

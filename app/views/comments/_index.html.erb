@@ -1,0 +1,13 @@
+
+<div class="panel-group">
+    <% comments.each do |c| %>
+    <div class="panel-default">
+        <div class="panel-heading">
+            <%= c.user.name %>(<%= c.user.role %>) , cretated at: <%= c.created_at.strftime("%H:%M:%S") %>
+        </div>
+        <div class="panel-body">
+            <%= c.description %>
+        </div>
+    </div>
+    <% end %>
+</div>

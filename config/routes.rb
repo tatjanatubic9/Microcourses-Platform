@@ -3,6 +3,10 @@ Rails.application.routes.draw do
  
 
   
+  get 'comments/show'
+
+  get 'comments/index'
+
   get 'profiles/show'
 
   get 'answer_comments/new'
@@ -13,7 +17,7 @@ Rails.application.routes.draw do
   
   get 'quizzes' => 'quiz#index', as: :my_quizzes
   
-  get "courses/:id/vote/:vote", to: 'course#vote'
+  get "courses/:id/vote/:vote", to: 'courses#vote'
 
   
 
@@ -26,7 +30,10 @@ Rails.application.routes.draw do
    resources :quiz_results, :except => [:edit, :update, :destroy]
    
    resources :courses do
-      resources :lessons
+      resources :lessons do
+        resources :comments, :except => [:edit, :update]
+      end  
+      
       resources :quiz, :except => [:index,:edit, :update] do
           resources :questions, :except => [:show, :edit, :update]
           resources :pending_quizzes, :except => [:destroy, :edit ,:update]
