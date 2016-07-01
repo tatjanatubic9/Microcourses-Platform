@@ -1,14 +1,74 @@
 <div class="container">
     <h1><%= current_user.name %></h1>
     E-mail: <%= current_user.email %><br>
-    <h2>ROLE: <%= current_user.role %></h2>
-    <%= link_to "Edit profile", edit_user_registration_path, :class => "btn btn-default" %>
+    <h2 class = "extra-bottom-padding">ROLE: <%= current_user.role %></h2>
+    <%= link_to "Edit profile", edit_user_registration_path, :class => "btn btn-default extra-bottom-padding" %>
     <p>Number of quizzes to be graded: <%= @pending_quizzes.size %></p>
     <p>Number of graded quizzes: <%= @quiz_results.size %></p>
     <% if current_user.teacher? %>
-        <p>Number of active courses: <%= @courses.size %></p>
-    <% elsif current_user.student? %>
+          <p>Number of active courses: <%= @courses.size %></p>
+          <h2>Courses informations: </h2>
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Date created</th>
+                    <th>Nb of finished quizzes</th>
+                    <th>Nb of graded quizzes</th>
+                    <th>Nb of ungraded quizzes</th>
+                  </tr>
+                </thead>
+              
+                <tbody>
+                  <% @courses.each do |course| %>
+                    <tr>
+                      <td><%= course.name %></td>
+                      <td><%= course.created_at.strftime("%d.%m.%y") %></td>
+                        <td><%= course.quiz.pending_quizzes.size %></td>
+                        <% number = 0 %>
+                        <% course.quiz.pending_quizzes.each do |p| %>
+                           <% if p.graded %>
+                             <% number+=1 %>
+                           <% end %>
+                        <% end %>
+                        <td><%= number %></td>
+                        <td><%= course.quiz.pending_quizzes.size - number %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+    <% end %>
+    <% if current_user.student? %>
         <p>Number of courses taken: <%= @courses.size %></p>
+        
+        <h2>Quizes information:</h2>
+        
+        <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Course name</th>
+                  <th>Quiz done on:</th>
+                  <th>Quiz graded:</th>
+                  <th>Grade:</th>
+                </tr>
+              </thead>
+            
+              <tbody>
+                <% @pending_quizzes.each do |pq| %>
+                  <tr>
+                    <td><%= pq.quiz.course.name %></td>
+                    <td><%= pq.created_at.strftime("%d.%m.%y - %H:%M") %></td>
+                    <td><%= pq.graded %></td>
+                    <% if pq.graded %>
+                    <td><%= pq.quiz_result.grade %></td>
+                    <% else %>
+                    <td>/</td>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
     <% end %>
     <p>Average grade per graded quiz: <%= @average_quiz_result %></p>
 </div>
+
